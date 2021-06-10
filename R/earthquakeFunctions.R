@@ -1,6 +1,5 @@
 ### Earthquake processing and visualization functions
 
-
 #' plot3compEqData: plot all components of 3-component (Z, N, E) seismic data in one window with labels
 #' @param data.df dataframe containing sesimic data for 3 components 
 #' @param total.time time interval for the data, default 27s for LEN-DB data
@@ -46,15 +45,22 @@ cha<-function(x,y){
 }
 
 
-# circle_intersection, a function to calculate the intersection of two circles given the center coordinates and radii
-# Based on the solution of:
-#   x^2 + y^2 + Ax + By + c = 0
-#   x^2 + y^2 + Dx + Ey + F = 0
-#
-# Solution used: Algebraic -- subtract the equations and solve
-# A vector-based solution may also be derived (it would be shorter, possibly better), but am
-#  having issues generalizing the angles needed to define the x and y components 
+#' circle_intersection: calculate the intersection of two circles
+#' @param center1 a vector containing the center coordinates of the first circle
+#' @param radius1 the radius of the first circle
+#' @param center2 a vector containing the center coordinates of the second circle
+#' @param radius2 the radius of the second circle
+#' @return a matrix containing either the ordered pairs of the 2 intersection points or NAs if no intersection is detected
+#' @examples 
+#' Usage example
+#' @export
 circle_intersection<-function(center1=c(x1,y1),radius1,center2=c(x2,y2),radius2){
+  # Based on the solution of:
+  #   x^2 + y^2 + Ax + By + c = 0
+  #   x^2 + y^2 + Dx + Ey + F = 0
+  #
+  # Solution used: Algebraic -- subtract the equations and solve
+  # A vector-based solution might also be derived which could be "simpler" than the algebraic derivation
   xInt1=0; xInt2=0; yInt1=0; yInt2=0
   intersection_coords<-c(c(xInt1,yInt1),c(xInt2,yInt2))
   # check if the circles intersect
@@ -66,7 +72,7 @@ circle_intersection<-function(center1=c(x1,y1),radius1,center2=c(x2,y2),radius2)
   intersection_exists<-((x2-x1)^2 + (y2-y1)^2)^0.5 <= (radius1+radius2)
   if(intersection_exists){
     print("intersection detected")
-    # tangency check?
+    # tangency check? or just return the same point
   }
   else{
     print("no intersection detected, aborting calculation")
@@ -94,7 +100,15 @@ circle_intersection<-function(center1=c(x1,y1),radius1,center2=c(x2,y2),radius2)
   return(intersection_coords)
 }
 
-# function to calculate a set of points that lie on a circle with a given center and radius
+
+#' circle: calculate a set of points that lie on a circle with a given center and diameter
+#' @param center a vector containing the center coordinates of the circle
+#' @param diameter the diameter of the circle
+#' @param npoints the number of points to generate for the circle, default=100
+#' @return a dataframe containing the specified number of points that lie on the circle
+#' @examples 
+#' Usage example
+#' @export 
 circle <- function(center = c(0,0),diameter = 1, npoints = 100){
   r = diameter / 2
   tt <- seq(0,2*pi,length.out = npoints)
