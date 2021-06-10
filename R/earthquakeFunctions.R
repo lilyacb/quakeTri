@@ -1,6 +1,17 @@
-### Earthquake processing/visualization functions
+### Earthquake processing and visualization functions
 
-# function to plot 3 component earthquake time data (Z,N,E)
+
+#' plot3compEqData: plot all components of 3-component (Z, N, E) seismic data in one window with labels
+#' @param data.df dataframe containing sesimic data for 3 components 
+#' @param total.time time interval for the data, default 27s for LEN-DB data
+#' @param plotTitle title of the plot
+#' @param mag attribute magnitude
+#' @param starttime attribute starttime
+#' @param sta station code
+#' @return ggplot of the seismic data
+#' @example 
+#' Usage example
+#' @export
 plot3compEqData<-function(data.df,total.time=27,plotTitle="plot",mag="mag",starttime="starttime",sta="sta"){ # time in benchmark dataset always 27s
   time.length<-dim(data.df[1:3][])[1]
   time.vec<-as.data.frame(seq(0,total.time,length=time.length))
