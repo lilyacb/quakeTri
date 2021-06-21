@@ -32,3 +32,6 @@ ggplot of the seismic data
 \description{
 plot3compEqData: plot all components of 3-component (Z, N, E) seismic data in one window with labels
 }
+\examples{
+Usage example
+}

@@ -3,4 +3,5 @@
 export(cha)
 export(circle)
 export(circle_intersection)
+export(geo_circle_intersections)
 export(plot3compEqData)
