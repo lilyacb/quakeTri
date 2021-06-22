@@ -149,7 +149,10 @@ geo_circle_intersections<-function(circle1,circle2,intersection_name){
   }
   
   # check for contents of ints--if length=0 then exit
-  stopifnot(length(ints)>0)
+  if(length(ints)==0){ 
+    stop("No intersections found")
+  }
+  
   # change ints to a dataframe
   ints.df<-as.data.frame(ints)
   colnames(ints.df)<-c("intersection_longitude","intersection_latitude")
